@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Sanvi</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+      padding: 44px 32px;
+      border-radius: 28px;
+      text-align: center;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 0;
+      font-weight: 400;
+      animation: glowName 3s ease-in-out infinite;
+    }
+
+    @keyframes glowName {
+      0% {
+        text-shadow: 0 0 6px #8ec5fc;
+      }
+      50% {
+        text-shadow: 0 0 18px #8ec5fc, 0 0 36px #e0c3fc;
+      }
+      100% {
+        text-shadow: 0 0 6px #8ec5fc;
+      }
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 24px; }
+      h2 { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="card">
+    <h1>🎉 Happy Birthday 🎉</h1>
+    <h2>Sanvi (Savkar Mandi 💸)</h2>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = [];
+    const colors = ["#ffffff", "#cfe9ff", "#e8d7ff"];
+
+    for (let i = 0; i < 60; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 2,
+        speed: Math.random() * 1.5 + 0.5,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+
+    function starFall() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        ctx.fillStyle = s.color;
+        ctx.fillRect(s.x, s.y, s.size, s.size);
+        s.y += s.speed;
+        if (s.y > canvas.height) {
+          s.y = -10;
+          s.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(starFall);
+    }
+    starFall();
+  </script>
+
+</body>
+</html>
